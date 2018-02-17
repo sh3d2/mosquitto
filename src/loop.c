@@ -437,9 +437,9 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 			libwebsocket_callback_on_writable(context->ws_context, context->wsi);
 		}
 		if(context->sock != INVALID_SOCKET){
+   			context->sock = INVALID_SOCKET;
+                        context->pollfd_index = -1;
 			HASH_DELETE(hh_sock, db->contexts_by_sock, context);
-			context->sock = INVALID_SOCKET;
-			context->pollfd_index = -1;
 		}
 	}else
 #endif
